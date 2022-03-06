@@ -59,7 +59,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: python ${{ github.action_path }}/setup.py install  # Installing dependencies
+    - run: python -m venv ${{ github.action_path }}/env && source ${{ github.action_path }}/env/bin/activate && python ${{ github.action_path }}/setup.py install  # Installing dependencies
       shell: bash
     - run: python ${{ github.action_path }}/bdscan/bdscanaction.py --debug ${{ inputs.debug }} --url ${{ inputs.url }} --token ${{ inputs.token }} --trustcert ${{ inputs.trustcert }} --mode ${{ inputs.mode }} --output ${{ inputs.output }} --project ${{ inputs.project }} --version ${{ inputs.version }} --fix_pr ${{ inputs.fix_pr }} --comment_on_pr ${{ inputs.comment_on_pr }} --sarif ${{ inputs.sarif }} --incremental_results ${{ inputs.incremental_results }} --upgrade_major ${{ inputs.upgrade_major }} --nocheck ${{ inputs.nocheck }} --detect_opts ${{ inputs.detect_opts }}
       shell: bash
